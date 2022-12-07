@@ -22,19 +22,18 @@ fn main() {
     println!("index: {message_start_index} = {}", &bytes[message_start_index-MARKER_LEN..message_start_index]);
 }
 
-fn all_unique_chars(seq: &str) -> bool {
-    let mut all_unique = true;
+fn all_unique_chars(s: &str) -> bool {
+    let mut chars = s.chars();
+    let mut seen_chars = Vec::new();
 
-    let bytes = seq.as_bytes();
-    for current in 0..bytes.len() {
-        for index in 0..bytes.len() {
-            if current != index && bytes[current] == bytes[index] {
-                all_unique = false;
-                break;
-            }
+    while let Some(c) = chars.next() {
+        if seen_chars.contains(&c) {
+            return false;
         }
+        seen_chars.push(c);
     }
-    all_unique
+
+    true
 }
  
 
